@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-interface Shape {
-  kind: "circle" | "square";
-  radius?: number;
-  sideLength?: number;
+interface Person {
+  name: string;
+  age: number;
 }
 
-// ---cut---
-function getArea(shape: Shape) {
-  if (shape.kind === "circle") {
-    return Math.PI * shape.radius! ** 2;
-  }
+interface ReadonlyPerson {
+  readonly name: string;
+  readonly age: number;
 }
 
-let a = getArea({kind:"circle",radius:3})
-console.log(a)
+let writablePerson: Person = {
+  name: "Person McPersonface",
+  age: 42,
+};
+
+// works
+let readonlyPerson: ReadonlyPerson = writablePerson;
+
+console.log(readonlyPerson.age); // prints '42'
+writablePerson.age++;
+console.log(readonlyPerson.age); // prints '43'
 </script>
 
 <template>
