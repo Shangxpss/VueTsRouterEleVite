@@ -1,25 +1,20 @@
 <script setup lang="ts">
-interface Person {
-  name: string;
-  age: number;
+type MessageOf<T extends { message: unknown }> = T["message"];
+
+interface Email {
+  message: string;
+}
+interface Iphone{
+  a:number
 }
 
-interface ReadonlyPerson {
-  readonly name: string;
-  readonly age: number;
-}
+type EmailMessageContents = MessageOf<Email>;
+type EmailMessageC = MessageOf<{message:number}>;
+let email:EmailMessageC = 3
+console.log(email)
 
-let writablePerson: Person = {
-  name: "Person McPersonface",
-  age: 42,
-};
 
-// works
-let readonlyPerson: ReadonlyPerson = writablePerson;
 
-console.log(readonlyPerson.age); // prints '42'
-writablePerson.age++;
-console.log(readonlyPerson.age); // prints '43'
 </script>
 
 <template>
